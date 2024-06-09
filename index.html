@@ -4,26 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
-    <link rel="icon" href="/img/favicon.png" type="image/png">
+    <link rel="icon" href="/img/logo.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./pokemonList.js" defer></script>
     <script src="./script.js"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar bg-dark border-bottom border-body displayFlex" data-bs-theme="dark">
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+           
             <div class="center">
             <img class="logo" src="./img/logo.png" alt="logoPicture">
             <h1>Pokedex</h1>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input id="searchInput" type="text" class="form-control" placeholder="Pokemon Name..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">Button</button>
+                  <button class="btn btn-outline-secondary" type="button">Suche</button>
                 </div>
               </div>
+            
           </nav>
     </header>
+
+    <section class="pokemonDiv center" id="content">
+        <div class="pokemonContainer">
+           <div class="listWrapper"></div> 
+        </div>
+        <div id="notFound">Pokemon not found</div>
+       
+    </section>
+
+    <footer>
+       <div class="footerLeft"></div>
+       <img class="logo" src="./img/logo.png" alt="logo">
+       <div class="footerRight"></div>
+      </footer>
 </body>
 </html>

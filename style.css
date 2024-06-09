@@ -1,32 +1,82 @@
 body {
-    margin: 0;
-    background-color: #525254 !important;
-    font-family: 'Open Sans' !important;
-    height: 100vh;
-    color: white !important;
-
+  margin: 0;
+  background-color: #525254 !important;
+  font-family: "Open Sans" !important;
+  height: 100vh;
+  color: white !important;
 }
 
 .logo {
-    height: 90px;
-    border-radius: 50%;
-    padding: 16px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 16px;
 }
 
 h1 {
-    font-family: 'Rubik Mono One';
-    margin: 0 !important;
+  font-family: "Rubik Mono One";
+  margin: 0 !important;
 }
 
 .displayFlex {
-    display: flex !important;
+  display: flex !important;
 }
 
-
-    
-
 .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  flex-wrap: nowrap !important;
+  gap: 350px;
+  border-bottom: 2px solid white; /* Anpassung der Dicke des Rahmens nach Bedarf */
+  box-shadow: 0 4px 2px -2px rgba(255, 255, 255, 0.5); /* Anpassung der Schattenwerte nach Bedarf */
+}
+
+.input-group {
+  margin-right: 60px;
+  margin-top: 50px;
+}
+
+#content {
+  height: 100vh;
+}
+
+footer {
+  
+  position: fixed; /* Fixiert den Footer */
+  bottom: 0; /* Am unteren Rand des Bildschirms */
+  width: 100%; /* Nimmt die volle Breite des Bildschirms ein */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  box-shadow: 0 -4px 2px -2px rgba(255, 255, 255, 0.5);
+  background-color: #212529;
+}
+
+.footerLeft {
+  background-color: white;
+  height: 1px;
+  width: 40%;
+}
+
+.footerRight {
+  background-color: white;
+  height: 1px;
+  width: 40%;
+}
+
+.pokemonDiv {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    padding: 24px;
+    gap: 16px;
+}
+
+.pokemonCard {
+    margin: 16px;
+    height: 300px;
+    width: 200px;
 }
