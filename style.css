@@ -10,6 +10,7 @@ body {
   height: 90px;
   border-radius: 50%;
   padding: 16px;
+  cursor: pointer;
 }
 
 h1 {
@@ -39,14 +40,16 @@ h1 {
   margin-top: 50px;
 }
 
-#content {
-  height: 100vh;
+.pokemonDiv {
+  
+  display: flex;
+  flex-wrap: wrap;
 }
+
 
 footer {
   
-  position: fixed; /* Fixiert den Footer */
-  bottom: 0; /* Am unteren Rand des Bildschirms */
+ 
   width: 100%; /* Nimmt die volle Breite des Bildschirms ein */
   display: flex;
   justify-content: center;
@@ -68,15 +71,75 @@ footer {
   width: 40%;
 }
 
-.pokemonDiv {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 24px;
-    gap: 16px;
+.pokemonCard {
+  width: 200px;
+  box-shadow: 0 4px 8px #CDDC39;
+  border-radius: 10px;
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out; /* Smooth transition for transform */
 }
 
-.pokemonCard {
-    margin: 16px;
-    height: 300px;
-    width: 200px;
+.pokemonCard:hover {
+  transform: scale(1.1); /* Scale up by 10% on hover */
 }
+
+.pokemonNameId {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #b94a44;
+  border-radius: 10px 10px 0px 0px;
+  padding: 8px;
+  }
+
+  .pokemonImg {
+    height: 130px;
+    width: 130px;
+    display: flex;
+    padding-bottom: 16px;
+    transition: transform 0.2s ease-in-out; /* Smooth transition for transform */
+  }
+  
+  .pokemonCard:hover .pokemonImg {
+    transform: scale(1.5); /* Scale up the image inside .pokemonCard by 20% on hover */
+  }
+
+  .typeClass {
+    height: 60px;
+    text-align: center;
+    background-color: antiquewhite;
+    width: 100%;
+    height: 50px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #b94a44;
+  }
+
+  .loadMore {
+    padding: 20px;
+  }
+
+  .loadMore button {
+    background-color: #b94a44;
+    }
+
+ .form-control {
+  border-radius: 10px !important;
+ }
+
+ .hidden {
+  display: none;
+ }
+  
+  
+
+
+
+
+
+
+
+

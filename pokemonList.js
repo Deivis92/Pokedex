@@ -1,54 +1,90 @@
-const POKEMON_MAX = 50;
-const listWrapper = document.querySelector(".listWrapper");
-
-const searchInput = document.querySelector("#searchInput");
-const nameFilter = document.querySelector("#name");
-const notFoundAlert = document.querySelector("#notFound");
-
+let pokemonCount = 50;
+let offset = 0;
 let allPokemons = [];
+let currentPokemons = [];
 
-fetch(`https://pokeapi.co/api/v2/pokemon?limit=${POKEMON_MAX}&offset=0`)
-  .then((response) => response.json())
-  .then((data) => {
-    allPokemons = data.results;
-    displayPokemons(allPokemons);
-    
-  });
+
+
+
+async function fetchPokemons() {
+  let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${pokemonCount}&offset=${offset}`);
+  const pokemonData = await response.json();
   
+  // Fetch detailed information for each Pokémon -Dieser Code ruft detaillierte Informationen für jedes Pokémon ab, indem er die URLs in den Basisdaten verwendet.
+  const detailedPokemons = await Promise.all(pokemonData.results.map(async (pokemon) => { 
+    const response = await fetch(pokemon.url);
+    return response.json();
+  }));
+  
+  allPokemons = detailedPokemons; 
+  currentPokemons = allPokemons; // Set currentPokemons to allPokemons initially 20.14
+  console.log(allPokemons);
+  displayPokemons();
+}
 
-async function fetchPokemonData(id) {
-  try {
-    const [pokemon, pokemonSpecies] = await Promise.all([
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) => res.json()),
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
-        res.json()
-      ),
-    ]);
-    return true;
-  } catch (error) {
-    console.error("Failed to fetch Pokemon data");
+function displayPokemons(){
+  let pokemonContent = document.getElementById('content');
+  pokemonContent.innerHTML = "";
+  for(let i = 0; i < currentPokemons.length; i++) {
+    let types = currentPokemons[i].types.map(type => type.type.name).join("<br> ");
+    pokemonContent.innerHTML += /*html*/ `<div class="mainPokemonDiv">
+      <div class ="pokemonCard">
+        <div class="pokemonNameId">
+          <div>${currentPokemons[i].name}</div>
+          <div>#${currentPokemons[i].id}</div>
+        </div>
+     <img class="pokemonImg" src="${currentPokemons[i].sprites.other.home.front_default}" alt="Image of ${currentPokemons[i].name}">
+     <div class="typeClass center">${types}</div>
+     </div>`;
+        
+        
   }
 }
 
-function displayPokemons(pokemonList) {
-    listWrapper.innerHTML = "";
-    
-    for (let i = 0; i < pokemonList.length; i++) {
-      const pokemon = pokemonList[i];
-      const pokemonID = pokemon.url.split("/")[6]; // Extracting the Pokémon ID from the URL
-      const listItem = document.createElement("div");
-      listItem.className = "listItem";
-      listItem.innerHTML = /*html*/ `
-        <div class="numberCard">
-          <p class="pokemonNameClass">${pokemonID}</p>
-        </div>
-        <div class="pokemonImg">
-          <img src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg" alt="${pokemon.name}" />
-        </div>
-        <div class="namePokemonCard">
-          <p class="pokemonNameClass">${pokemon.name}</p>
-        </div>
-      `;
-      listWrapper.appendChild(listItem);
-    }
+async function init() {
+  await fetchPokemons(); 
+  currentPokemons = allPokemons; 
+  displayPokemons();
+}
+
+async function loadMorePokemons() {
+  offset += pokemonCount;
+  pokemonCount = 20; // Update the count to load additional 20 Pokémons each time
+  let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${pokemonCount}&offset=${offset}`);
+  const pokemonData = await response.json();
+  
+  // Fetch detailed information for each Pokémon
+  const detailedPokemons = await Promise.all(pokemonData.results.map(async (pokemon) => {
+    const response = await fetch(pokemon.url);
+    return response.json();
+  }));
+  
+  allPokemons = allPokemons.concat(detailedPokemons); // Concatenate new Pokémon data to the existing list
+  currentPokemons = allPokemons; // Update currentPokemons
+  console.log(allPokemons);
+  displayPokemons();
+}
+
+function pokemonSearch(filterWord) {
+  currentPokemons = allPokemons.filter(pokemon => pokemon.name.toLowerCase().includes(filterWord.toLowerCase()));
+  displayPokemons();
+}
+
+init();
+
+document.getElementById('searchInput').addEventListener('input', (event) => {
+  const searchInput = event.target.value;
+  const hideButtonDiv = document.querySelector('.loadMore.center');
+  
+  // Call the pokemonSearch function
+  pokemonSearch(searchInput);
+  
+  // Check if the search input is empty
+  if (searchInput.trim() === '') {
+    // If empty, remove the 'hidden' class to display the button
+    hideButtonDiv.classList.remove('hidden');
+  } else {
+    // If not empty, add the 'hidden' class to hide the button
+    hideButtonDiv.classList.add('hidden');
   }
+});
