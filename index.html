@@ -41,6 +41,13 @@
     <button onclick="loadMorePokemons()" class="btn btn-danger">Load more...</button>
     </div>
 
+    <div class="overlay" id="overlay">
+        <img src="./img/exit.png" class="close overlayIcons" onclick="closeOverlay()" alt="close">
+        <img src="./img/left.png" class="left overlayIcons" onclick="prevPokemon()" alt="left">
+        <img src="./img/right.png" class="right overlayIcons" onclick="nextPokemon()" alt="right">
+        <div class="bigPokemonCard" id="bigPokemonCard"></div>
+    </div>
+
 
     
 </body>
