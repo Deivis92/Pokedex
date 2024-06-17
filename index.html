@@ -1,54 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="icon" href="/img/logo.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./fonts.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <script src="./pokemonList.js" defer></script>
-    <script src="./script.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body onload="init()">
-    <header>
-        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-           
-            <div class="center">
-            <img onclick="location.reload()" class="logo" src="./img/logo.png" alt="logoPicture">
+    <link rel="icon" href="./img/logo.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./fonts.css" />
+
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./mediaquerry.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body onload="init()">
+    <div class="main">
+      <header>
+        <nav
+          class="navbar bg-dark border-bottom border-body"
+          data-bs-theme="dark"
+        >
+          <div class="center">
+            <img
+              onclick="location.reload()"
+              class="logo"
+              src="./img/logo.png"
+              alt="logoPicture"
+            />
             <h1>Pokedex</h1>
-            </div>
-            <div class="input-group mb-3">
-                <input id="searchInput" type="text" class="form-control" placeholder="Pokemon Name..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                  
-                </div>
-              </div>
-            
-          </nav>
-    </header>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              id="searchInput"
+              type="text"
+              class="form-control"
+              placeholder="Pokemon Name..."
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append"></div>
+          </div>
+        </nav>
+      </header>
 
-    <section class="pokemonDiv center" id="content">
+      <section class="pokemonDiv center" id="content">
+        <div id="notFound" style="display: none">Pokemon not found</div>
+      </section>
+      <div id="hideButton" class="loadMore center">
+        <button onclick="loadMorePokemons()" class="btn btn-danger">
+          Load more...
+        </button>
+      </div>
+
+      <div onclick="closeOverlay()" class="overlay" id="overlay">
+        <div
+          onclick="stopPropagation(event)"
+          class="bigPokemonCard"
+          id="bigPokemonCard"
+        ></div>
+      </div>
     </div>
-       
-        <div id="notFound" style="display: none;">Pokemon not found</div>
-       
-    </section>
-     <div id="hideButton" class="loadMore center">
-    <button onclick="loadMorePokemons()" class="btn btn-danger">Load more...</button>
-    </div>
 
-    <div class="overlay" id="overlay">
-        <img src="./img/exit.png" class="close overlayIcons" onclick="closeOverlay()" alt="close">
-        <img src="./img/left.png" class="left overlayIcons" onclick="prevPokemon()" alt="left">
-        <img src="./img/right.png" class="right overlayIcons" onclick="nextPokemon()" alt="right">
-        <div class="bigPokemonCard" id="bigPokemonCard"></div>
-    </div>
-
-
-    
-</body>
+    <div id="loader" class="loader hidden"></div>
+  </body>
 </html>
